@@ -11,6 +11,7 @@ from PIL import Image, ImageTk
 import shutil
 import tkinter as tk
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.chrome.options import Options
 
 # GUI
 window = tk.Tk()
@@ -31,7 +32,11 @@ ig_password = tk.Entry(window)
 # Main Function
 def bot(tell_account_input, tell_password_input, ig_account_input, ig_password_input):
     # Getting Tells to Post
-    driver = webdriver.Chrome(ChromeDriverManager().install())
+    chrome_options = Options()
+    mobile_emulation = { "deviceName": "iPhone X" }
+    chrome_options.add_experimental_option("mobileEmulation", mobile_emulation)
+
+    driver = webdriver.Chrome(ChromeDriverManager().install(), options = chrome_options)
     driver.get("https://tellonym.me/login?redirect=/tells")
 
     username = WebDriverWait(driver, 10).until(
@@ -63,9 +68,14 @@ def bot(tell_account_input, tell_password_input, ig_account_input, ig_password_i
         for pics in os.listdir("to_post/"):
             image = Image.open("to_post/" + pics, 'r')
             image = image.convert('RGB')
-            image = image.crop(((1, 1, 600, 50)))
+            box = (1, 1, image.width - 45, image.height - 35)
+            image = image.crop(box)
+            zoom = (image.width*2, image.height*2)
+            image = image.resize(zoom)
+            v_line = ImageDraw.Draw(image)
+            v_line.line([1, 30, 1, image.width], fill = "grey", width = 10)
             template = Image.open("template.jpg")
-            template.paste(image, (85,380))
+            template.paste(image, (70,350))
             template.save(re.sub(".png", ".jpg", str("to_post/" + pics)))
 
         for item in os.listdir("to_post/"):
@@ -103,6 +113,5 @@ ig_account.grid(row = 3, column = 2, padx = 10, pady = 10)
 label_ig_password.grid(row = 4, column = 0, padx = 10, pady = 10)
 ig_password.grid(row = 4, column = 2, padx = 10, pady = 10)
 run.grid(row = 5, column = 1, padx = 10, pady = 10)
-# tk.Label(window, text = no_posts).grid(row = 5, column = 1, padx = 10, pady = 10)
 
 window.mainloop()
