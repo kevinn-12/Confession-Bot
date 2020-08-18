@@ -10,11 +10,12 @@ import os
 from PIL import Image, ImageTk
 import shutil
 import tkinter as tk
+from selenium.common.exceptions import TimeoutException
 
 # GUI
 window = tk.Tk()
 window.title("Confessions Bot")
-window.geometry("600x300")
+window.geometry("600x350")
 window.grid_columnconfigure((0,2), weight = 1)
 
 label_tell_account = tk.Label(window, text = "Tellonym Account")
@@ -45,44 +46,49 @@ def bot(tell_account_input, tell_password_input, ig_account_input, ig_password_i
 
     driver.find_element_by_tag_name("button").click()
 
-    for element in WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.CLASS_NAME, "rmq-f5f56a03"))):
-         unclean_name = re.findall("element\s*=\s*([\S\s]+)", str(element))
-         name = re.sub('[^\w]', '', str(unclean_name))
-         element.screenshot("to_post/" + datetime.now().strftime("%Y_%m_%d-%I_%M_%S_%p") + str(name) + ".png")
+    try:
+        for element in WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.CLASS_NAME, "rmq-f5f56a03"))):
+             unclean_name = re.findall("element\s*=\s*([\S\s]+)", str(element))
+             name = re.sub('[^\w]', '', str(unclean_name))
+             element.screenshot("to_post/" + datetime.now().strftime("%Y_%m_%d-%I_%M_%S_%p") + str(name) + ".png")
 
-    for i in range(len(driver.find_elements_by_class_name("rmq-f5f56a03"))):
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "rmq-f5f56a03"))).click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "answer"))).send_keys("posted")
-        driver.find_element_by_tag_name("button").click()
+        for i in range(len(driver.find_elements_by_class_name("rmq-f5f56a03"))):
+            WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "rmq-f5f56a03"))).click()
+            WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "answer"))).send_keys("posted")
+            driver.find_element_by_tag_name("button").click()
 
-    driver.quit()
+        driver.quit()
 
-    # Pic Formating
-    for pics in os.listdir("to_post/"):
-        image = Image.open("to_post/" + pics, 'r')
-        image = image.convert('RGB')
-        image = image.crop(((1, 1, 600, 50)))
-        template = Image.open("template.jpg")
-        template.paste(image, (85,380))
-        template.save(re.sub(".png", ".jpg", str("to_post/" + pics)))
+        # Pic Formating
+        for pics in os.listdir("to_post/"):
+            image = Image.open("to_post/" + pics, 'r')
+            image = image.convert('RGB')
+            image = image.crop(((1, 1, 600, 50)))
+            template = Image.open("template.jpg")
+            template.paste(image, (85,380))
+            template.save(re.sub(".png", ".jpg", str("to_post/" + pics)))
 
-    for item in os.listdir("to_post/"):
-         if item.endswith(".png"):
-             os.remove(os.path.join("to_post/", item))
+        for item in os.listdir("to_post/"):
+             if item.endswith(".png"):
+                 os.remove(os.path.join("to_post/", item))
 
-    # Posting Tells to Instagram
-    bot = Bot()
+        # Posting Tells to Instagram
+        bot = Bot()
 
-    bot.login(username = ig_account_input,
-      		password = ig_password_input)
+        bot.login(username = ig_account_input,
+          		password = ig_password_input)
 
-    for pics in os.listdir("to_post/"):
-        bot.upload_photo("to_post/" + str(pics), caption = "test")
+        for pics in os.listdir("to_post/"):
+            bot.upload_photo("to_post/" + str(pics), caption = "test")
 
-    # Movig pics from to_post folder -> posted
-    for pics in os.listdir("to_post/"):
-        shutil.move("to_post/" + pics, "posted")
-        os.rename("posted/" + pics, "posted/" + re.sub(".REMOVE_ME", "", str(pics)))
+        # Movig pics from to_post folder -> posted
+        for pics in os.listdir("to_post/"):
+            shutil.move("to_post/" + pics, "posted")
+            os.rename("posted/" + pics, "posted/" + re.sub(".REMOVE_ME", "", str(pics)))
+
+    except TimeoutException as ex:
+        driver.quit()
+        tk.Label(window, text = "There is nothing to post. Try again later!").grid(row = 6, column = 1, padx = 10, pady = 10)
 
 run = tk.Button(text = "Run!", command = lambda: bot(tell_account.get(), tell_password.get(), ig_account.get(), ig_password.get()))
 
@@ -97,5 +103,6 @@ ig_account.grid(row = 3, column = 2, padx = 10, pady = 10)
 label_ig_password.grid(row = 4, column = 0, padx = 10, pady = 10)
 ig_password.grid(row = 4, column = 2, padx = 10, pady = 10)
 run.grid(row = 5, column = 1, padx = 10, pady = 10)
+# tk.Label(window, text = no_posts).grid(row = 5, column = 1, padx = 10, pady = 10)
 
 window.mainloop()
