@@ -1,0 +1,27 @@
+2020-08-17 14:29:15,963 - instabot version: 0.117.0 (bot) - INFO - Instabot version: 0.117.0 Started
+2020-08-17 14:29:15,963 - instabot version: 0.117.0 (bot) - DEBUG - Bot imported from C:\Python38\lib\site-packages\instabot\bot\bot.py
+2020-08-17 14:29:15,965 - instabot version: 0.117.0 (api_login) - DEBUG - Loading cookies
+2020-08-17 14:29:15,966 - instabot version: 0.117.0 (api_login) - DEBUG - Loading uuids
+2020-08-17 14:29:15,966 - instabot version: 0.117.0 (api_login) - INFO - Recovery from C:\Users\Victor\OneDrive\Desktop\CS\PythonProject\Confessions Bot/config/victordigueslacerda_uuid_and_cookie.json: COOKIE True - UUIDs True - TIMING, DEVICE and ...
+- user-agent=Instagram 117.0.0.28.123 Android (28/9.0; 420dpi; 1080x1920; OnePlus; ONEPLUS A3003; OnePlus3; qcom; en_US; 180322800)
+- phone_id=0294b770-0458-4e7c-b3f0-14f710c70ecb
+- uuid=7ca4da58-6651-42bd-a1d3-8b8a5b050a76
+- client_session_id=8bc358fc-f73a-4bb4-b090-97b048695d7e
+- device_id=android-cffc1a251af68d37
+2020-08-17 14:29:15,966 - instabot version: 0.117.0 (api_login) - INFO - LOGIN FLOW! Just logged-in: False
+2020-08-17 14:29:17,839 - instabot version: 0.117.0 (api) - DEBUG - POST to endpoint: feed/timeline/ returned response: <Response [200]>
+2020-08-17 14:29:19,123 - instabot version: 0.117.0 (api) - DEBUG - POST to endpoint: feed/reels_tray/ returned response: <Response [200]>
+2020-08-17 14:29:19,853 - instabot version: 0.117.0 (api) - DEBUG - POST to endpoint: direct_v2/ranked_recipients/ returned response: <Response [200]>
+2020-08-17 14:29:20,188 - instabot version: 0.117.0 (api) - DEBUG - POST to endpoint: direct_v2/ranked_recipients/ returned response: <Response [200]>
+2020-08-17 14:29:21,804 - instabot version: 0.117.0 (api) - DEBUG - POST to endpoint: direct_v2/inbox/ returned response: <Response [200]>
+2020-08-17 14:29:22,221 - instabot version: 0.117.0 (api) - DEBUG - GET to endpoint: direct_v2/get_presence/ returned response: <Response [200]>
+2020-08-17 14:29:22,994 - instabot version: 0.117.0 (api) - DEBUG - GET to endpoint: news/inbox/?limited_activity=true&show_su=true returned response: <Response [200]>
+2020-08-17 14:29:23,294 - instabot version: 0.117.0 (api) - DEBUG - GET to endpoint: users/profile_notice/ returned response: <Response [200]>
+2020-08-17 14:29:24,905 - instabot version: 0.117.0 (api) - DEBUG - POST to endpoint: discover/explore/ returned response: <Response [200]>
+2020-08-17 14:29:24,908 - instabot version: 0.117.0 (api) - INFO - Logged-in successfully as 'victordigueslacerda'!
+2020-08-17 14:29:24,908 - instabot version: 0.117.0 (bot_checkpoint) - DEBUG - Loading Checkpoint file from: C:\Users\Victor\OneDrive\Desktop\CS\PythonProject\Confessions Bot/config/victordigueslacerda.checkpoint
+2020-08-17 14:29:47,862 - instabot version: 0.117.0 (api) - DEBUG - POST to endpoint: media/configure/? returned response: <Response [200]>
+2020-08-17 14:29:48,280 - instabot version: 0.117.0 (api) - DEBUG - POST to endpoint: qe/expose/ returned response: <Response [200]>
+2020-08-17 14:29:48,281 - instabot version: 0.117.0 (bot_photo) - INFO - Photo 'to_post/2020_08_17-02_29_11_PM34f7947fb38d430ca7340f49b93700d2.jpg' is uploaded.
+2020-08-17 14:29:48,286 - instabot version: 0.117.0 (bot_checkpoint) - DEBUG - Saving Checkpoint file to: C:\Users\Victor\OneDrive\Desktop\CS\PythonProject\Confessions Bot/config/victordigueslacerda.checkpoint
+2020-08-17 14:29:48,287 - instabot version: 0.117.0 (bot) - INFO - Total requests: 35
