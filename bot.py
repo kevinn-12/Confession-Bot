@@ -7,9 +7,10 @@ from webdriver_manager.chrome import ChromeDriverManager
 from datetime import datetime
 import re
 import os
-from PIL import Image, ImageTk
+from PIL import Image, ImageTk, ImageDraw
 import shutil
 import tkinter as tk
+from tkinter import messagebox
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.chrome.options import Options
 
@@ -81,6 +82,42 @@ def bot(tell_account_input, tell_password_input, ig_account_input, ig_password_i
         for item in os.listdir("to_post/"):
              if item.endswith(".png"):
                  os.remove(os.path.join("to_post/", item))
+
+        # Picture Popup Check
+        top = tk.Toplevel(window)
+        top.attributes('-topmost', 'true')
+        top.geometry("550x550")
+
+        current = 0
+        image_list = [os.path.join("to_post/", files) for files in os.listdir("to_post/")]
+        def move(delta):
+            nonlocal current, image_list
+            if not (0 <= current - delta < len(image_list)):
+                messagebox.showinfo('End', 'No more image.')
+                return
+            current -= delta
+            image = Image.open(image_list[current])
+            photo = ImageTk.PhotoImage(image.resize((400,400)))
+            label['image'] = photo
+            label.photo = photo
+
+        def delete():
+            nonlocal current, image_list
+            os.rename(image_list[current], re.sub("to_post/", "not_posted/", image_list[current]))
+            move(-1)
+            image_list = [os.path.join("to_post/", files) for files in os.listdir("to_post/")]
+
+        label = tk.Label(top)
+        label.pack()
+
+        frame = tk.Frame(top)
+        frame.pack()
+
+        tk.Button(frame, text = 'Previous picture', command = lambda: move(+1)).pack(side = tk.LEFT)
+        tk.Button(frame, text = 'Next picture', command = lambda: move(-1)).pack(side = tk.LEFT)
+        tk.Button(frame, text = "Don't Post", command = delete).pack(side = tk.LEFT)
+
+        move(0)
 
         # Posting Tells to Instagram
         bot = Bot()
