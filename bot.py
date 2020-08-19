@@ -85,8 +85,11 @@ def bot(tell_account_input, tell_password_input, ig_account_input, ig_password_i
 
         # Picture Popup Check
         top = tk.Toplevel(window)
-        top.attributes('-topmost', 'true')
-        top.geometry("550x550")
+        # top.attributes('-topmost', 'true')
+        top.focus_force()
+        top.lift()
+        top.geometry("600x550")
+        top.grid_columnconfigure((0,4), weight = 1)
 
         current = 0
         image_list = [os.path.join("to_post/", files) for files in os.listdir("to_post/")]
@@ -108,18 +111,17 @@ def bot(tell_account_input, tell_password_input, ig_account_input, ig_password_i
             image_list = [os.path.join("to_post/", files) for files in os.listdir("to_post/")]
 
         label = tk.Label(top)
-        label.pack()
+        label.grid(row = 0, column = 1, padx = 10, pady = 10)
 
-        frame = tk.Frame(top)
-        frame.pack()
-
-        tk.Button(frame, text = 'Previous picture', command = lambda: move(+1)).pack(side = tk.LEFT)
-        tk.Button(frame, text = 'Next picture', command = lambda: move(-1)).pack(side = tk.LEFT)
-        tk.Button(frame, text = "Don't Post", command = delete).pack(side = tk.LEFT)
+        tk.Button(top, text = 'Previous picture', command = lambda: move(+1)).grid(row = 1, column = 0, columnspan = 1)
+        tk.Button(top, text = 'Next picture', command = lambda: move(-1)).grid(row = 1, column = 3, columnspan = 4)
+        tk.Button(top, text = "Don't Post", command = delete).grid(row = 1, column = 1, padx = 10, pady = 10)
+        caption = tk.Label(top, text = "Caption:").grid(row = 2, column = 1)
+        tk.Entry(top).grid(row = 3, column = 1)
 
         move(0)
 
-        # Posting Tells to Instagram
+        Posting Tells to Instagram
         bot = Bot()
 
         bot.login(username = ig_account_input,
