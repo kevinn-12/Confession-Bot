@@ -7,12 +7,28 @@ from webdriver_manager.chrome import ChromeDriverManager
 from datetime import datetime
 import re
 import os
+from os import path
 from PIL import Image, ImageTk, ImageDraw
 import shutil
 import tkinter as tk
 from tkinter import messagebox
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.chrome.options import Options
+import atexit
+from json import dumps, loads
+
+# Script Counter/Setup
+def read_counter():
+    return loads(open("counter.json", "r").read()) + 1 if path.exists("counter.json") else 0
+
+def write_counter():
+    with open("counter.json", "w") as f:
+        f.write(dumps(counter))
+
+counter = read_counter()
+atexit.register(write_counter)
+
+# if not os.path.isfile("counter"):
 
 # GUI
 window = tk.Tk()
@@ -63,6 +79,7 @@ def bot(tell_account_input, tell_password_input, ig_account_input, ig_password_i
             WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "answer"))).send_keys("posted")
             driver.find_element_by_tag_name("button").click()
 
+        WebDriverWait(driver, 10)
         driver.quit()
 
         # Pic Formating
@@ -89,10 +106,13 @@ def bot(tell_account_input, tell_password_input, ig_account_input, ig_password_i
         top.focus_force()
         top.lift()
         top.geometry("600x550")
-        top.grid_columnconfigure((0,4), weight = 1)
+        top.grid_columnconfigure((0, 4), weight = 1)
 
         current = 0
         image_list = [os.path.join("to_post/", files) for files in os.listdir("to_post/")]
+        caption_text = tk.Entry(top)
+        caption_text.grid(row = 3, column = 1)
+
         def move(delta):
             nonlocal current, image_list
             if not (0 <= current - delta < len(image_list)):
@@ -100,39 +120,43 @@ def bot(tell_account_input, tell_password_input, ig_account_input, ig_password_i
                 return
             current -= delta
             image = Image.open(image_list[current])
-            photo = ImageTk.PhotoImage(image.resize((400,400)))
+            photo = ImageTk.PhotoImage(image.resize((400, 400)))
             label['image'] = photo
             label.photo = photo
 
-        def delete():
-            nonlocal current, image_list
+        # Posting Tells to Instagram
+        def instagram():
+            nonlocal ig_account_input, ig_password_input, current, image_list, caption_text
+            bot = Bot()
+            bot.login(username = ig_account_input, password = ig_password_input)
+            if not caption_text.get():
+                bot.upload_photo(image_list[current], caption = "#" + str(counter))
+                move(-1)
+            else:
+                bot.upload_photo(image_list[current], caption = caption_text.get())
+                move(-1)
+
+        # def delete():
+        #     nonlocal current, image_list
+        #     os.rename(image_list[current], re.sub("to_post/", "not_posted/", image_list[current]))
+        #     move(-1)
+        #     image_list = [os.path.join("to_post/", files) for files in os.listdir("to_post/")]
+        def dont_post():
             os.rename(image_list[current], re.sub("to_post/", "not_posted/", image_list[current]))
             move(-1)
-            image_list = [os.path.join("to_post/", files) for files in os.listdir("to_post/")]
 
         label = tk.Label(top)
         label.grid(row = 0, column = 1, padx = 10, pady = 10)
 
-        tk.Button(top, text = 'Previous picture', command = lambda: move(+1)).grid(row = 1, column = 0, columnspan = 1)
-        tk.Button(top, text = 'Next picture', command = lambda: move(-1)).grid(row = 1, column = 3, columnspan = 4)
-        tk.Button(top, text = "Don't Post", command = delete).grid(row = 1, column = 1, padx = 10, pady = 10)
-        caption = tk.Label(top, text = "Caption:").grid(row = 2, column = 1)
-        tk.Entry(top).grid(row = 3, column = 1)
+        # tk.Button(top, text = 'Previous picture', command = lambda: move(+1)).grid(row = 1, column = 0, columnspan = 1)
+        tk.Button(top, text = "Don't Post", command = dont_post).grid(row = 1, column = 0, columnspan = 1)
+        tk.Button(top, text = "Post to Instagram", command = instagram).grid(row = 1, column = 3, columnspan = 4)
+        tk.Label(top, text = "Caption:").grid(row = 2, column = 1)
 
         move(0)
 
-        Posting Tells to Instagram
-        bot = Bot()
-
-        bot.login(username = ig_account_input,
-          		password = ig_password_input)
-
-        for pics in os.listdir("to_post/"):
-            bot.upload_photo("to_post/" + str(pics), caption = "test")
-
         # Movig pics from to_post folder -> posted
         for pics in os.listdir("to_post/"):
-            shutil.move("to_post/" + pics, "posted")
             os.rename("posted/" + pics, "posted/" + re.sub(".REMOVE_ME", "", str(pics)))
 
     except TimeoutException as ex:
