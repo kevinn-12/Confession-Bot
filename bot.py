@@ -14,21 +14,6 @@ import tkinter as tk
 from tkinter import messagebox
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.chrome.options import Options
-import atexit
-from json import dumps, loads
-
-# Script Counter/Setup
-def read_counter():
-    return loads(open("counter.json", "r").read()) + 1 if path.exists("counter.json") else 0
-
-def write_counter():
-    with open("counter.json", "w") as f:
-        f.write(dumps(counter))
-
-counter = read_counter()
-atexit.register(write_counter)
-
-# if not os.path.isfile("counter"):
 
 # GUI
 window = tk.Tk()
@@ -48,6 +33,12 @@ ig_password = tk.Entry(window)
 
 # Main Function
 def bot(tell_account_input, tell_password_input, ig_account_input, ig_password_input):
+    # Script Setup
+    folders = ["to_post/", "not_posted/", "posted"]
+    for folder in folders:
+        if not path.exists(folder):
+            os.mkdir(folder)
+
     # Getting Tells to Post
     chrome_options = Options()
     mobile_emulation = { "deviceName": "iPhone X" }
@@ -102,7 +93,6 @@ def bot(tell_account_input, tell_password_input, ig_account_input, ig_password_i
 
         # Picture Popup Check
         top = tk.Toplevel(window)
-        # top.attributes('-topmost', 'true')
         top.focus_force()
         top.lift()
         top.geometry("600x550")
@@ -127,20 +117,15 @@ def bot(tell_account_input, tell_password_input, ig_account_input, ig_password_i
         # Posting Tells to Instagram
         def instagram():
             nonlocal ig_account_input, ig_password_input, current, image_list, caption_text
-            bot = Bot()
-            bot.login(username = ig_account_input, password = ig_password_input)
             if not caption_text.get():
-                bot.upload_photo(image_list[current], caption = "#" + str(counter))
-                move(-1)
+                messagebox.showinfo('End', 'Caption Missing')
             else:
+                bot = Bot()
+                bot.login(username = ig_account_input, password = ig_password_input)
                 bot.upload_photo(image_list[current], caption = caption_text.get())
+                os.rename(image_list[current] + ".REMOVE_ME", re.sub("to_post/", "posted/", image_list[current]))
                 move(-1)
 
-        # def delete():
-        #     nonlocal current, image_list
-        #     os.rename(image_list[current], re.sub("to_post/", "not_posted/", image_list[current]))
-        #     move(-1)
-        #     image_list = [os.path.join("to_post/", files) for files in os.listdir("to_post/")]
         def dont_post():
             os.rename(image_list[current], re.sub("to_post/", "not_posted/", image_list[current]))
             move(-1)
@@ -148,16 +133,11 @@ def bot(tell_account_input, tell_password_input, ig_account_input, ig_password_i
         label = tk.Label(top)
         label.grid(row = 0, column = 1, padx = 10, pady = 10)
 
-        # tk.Button(top, text = 'Previous picture', command = lambda: move(+1)).grid(row = 1, column = 0, columnspan = 1)
         tk.Button(top, text = "Don't Post", command = dont_post).grid(row = 1, column = 0, columnspan = 1)
         tk.Button(top, text = "Post to Instagram", command = instagram).grid(row = 1, column = 3, columnspan = 4)
         tk.Label(top, text = "Caption:").grid(row = 2, column = 1)
 
         move(0)
-
-        # Movig pics from to_post folder -> posted
-        for pics in os.listdir("to_post/"):
-            os.rename("posted/" + pics, "posted/" + re.sub(".REMOVE_ME", "", str(pics)))
 
     except TimeoutException as ex:
         driver.quit()
