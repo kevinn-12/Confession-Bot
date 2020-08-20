@@ -75,6 +75,7 @@ def bot(tell_account_input, tell_password_input, ig_account_input, ig_password_i
 
         # Pic Formating
         for pics in os.listdir("to_post/"):
+            # if not pics.startswith("NOT_POSTED"):
             image = Image.open("to_post/" + pics, 'r')
             image = image.convert('RGB')
             box = (1, 1, image.width - 45, image.height - 35)
@@ -104,9 +105,10 @@ def bot(tell_account_input, tell_password_input, ig_account_input, ig_password_i
         caption_text.grid(row = 3, column = 1)
 
         def move(delta):
-            nonlocal current, image_list
+            nonlocal current, image_list, top
             if not (0 <= current - delta < len(image_list)):
-                messagebox.showinfo('End', 'No more image.')
+                messagebox.showinfo('End', 'No more images to post.')
+                top.destroy()
                 return
             current -= delta
             image = Image.open(image_list[current])
@@ -120,11 +122,19 @@ def bot(tell_account_input, tell_password_input, ig_account_input, ig_password_i
             if not caption_text.get():
                 messagebox.showinfo('End', 'Caption Missing')
             else:
-                bot = Bot()
-                bot.login(username = ig_account_input, password = ig_password_input)
-                bot.upload_photo(image_list[current], caption = caption_text.get())
-                os.rename(image_list[current] + ".REMOVE_ME", re.sub("to_post/", "posted/", image_list[current]))
-                move(-1)
+                try:
+                    bot = Bot()
+                    bot.login(username = ig_account_input, password = ig_password_input)
+                    bot.upload_photo(image_list[current], caption = caption_text.get())
+                    os.rename(image_list[current] + ".REMOVE_ME", re.sub("to_post/", "posted/", image_list[current]))
+                    move(-1)
+                except:
+                    messagebox.showerror('Next',
+                        "Couldn't connect to Instagram. Logg-in details may be wrong. Edited pictures moved to 'Not Posted'. Try again")
+                    # os.rename(image_list[current], re.sub("to_post/", "not_posted/", image_list[current]))
+                    for pics in os.listdir("to_post/"):
+                        os.rename("to_post/" + pics, "not_posted/" + pics)
+                    window.destroy()
 
         def dont_post():
             os.rename(image_list[current], re.sub("to_post/", "not_posted/", image_list[current]))
