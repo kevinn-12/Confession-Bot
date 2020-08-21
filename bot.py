@@ -129,7 +129,7 @@ def bot(tell_account_input, tell_password_input, ig_account_input, ig_password_i
                     os.rename(image_list[current] + ".REMOVE_ME", re.sub("to_post/", "posted/", image_list[current]))
                     move(-1)
                 except:
-                    messagebox.showerror('Next',
+                    messagebox.showerror('Ok',
                         "Couldn't connect to Instagram. Logg-in details may be wrong. Edited pictures moved to 'Not Posted'. Try again")
                     # os.rename(image_list[current], re.sub("to_post/", "not_posted/", image_list[current]))
                     for pics in os.listdir("to_post/"):
