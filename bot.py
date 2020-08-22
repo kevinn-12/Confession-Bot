@@ -120,14 +120,12 @@ def bot(tell_account_input, tell_password_input, ig_account_input, ig_password_i
         def instagram():
             nonlocal ig_account_input, ig_password_input, current, image_list, caption_text
             if not caption_text.get():
-                messagebox.showinfo('End', 'Caption Missing')
+                messagebox.showinfo('WARNING', 'Caption Missing')
             else:
                 try:
                     bot = Bot()
                     bot.login(username = ig_account_input, password = ig_password_input)
                     bot.upload_photo(image_list[current], caption = caption_text.get())
-                    os.rename(image_list[current] + ".REMOVE_ME", re.sub("to_post/", "posted/", image_list[current]))
-                    move(-1)
                 except:
                     messagebox.showerror('Ok',
                         "Couldn't connect to Instagram. Logg-in details may be wrong. Edited pictures moved to 'Not Posted'. Try again")
@@ -135,6 +133,9 @@ def bot(tell_account_input, tell_password_input, ig_account_input, ig_password_i
                     for pics in os.listdir("to_post/"):
                         os.rename("to_post/" + pics, "not_posted/" + pics)
                     window.destroy()
+                os.rename(image_list[current] + ".REMOVE_ME", re.sub("to_post/", "posted/", image_list[current]))
+                move(-1)
+                caption_text.delete(0, "end")
 
         def dont_post():
             os.rename(image_list[current], re.sub("to_post/", "not_posted/", image_list[current]))
@@ -151,7 +152,7 @@ def bot(tell_account_input, tell_password_input, ig_account_input, ig_password_i
 
     except TimeoutException as ex:
         driver.quit()
-        tk.Label(window, text = "There is nothing to post. Try again later!").grid(row = 6, column = 1, padx = 10, pady = 10)
+        tk.Label(window, text = "There is nothing to post. Try again later!").grid(row = 6, column = 1, pady = 10)
 
 run = tk.Button(text = "Run!", command = lambda: bot(tell_account.get(), tell_password.get(), ig_account.get(), ig_password.get()))
 
