@@ -1,0 +1,62 @@
+2020-08-22 15:19:44,703 - instabot version: 0.117.0 (bot) - INFO - Instabot version: 0.117.0 Started
+2020-08-22 15:19:44,703 - instabot version: 0.117.0 (bot) - DEBUG - Bot imported from /Users/victor/Desktop/confessions/dist/bot.app/Contents/Resources/lib/python3.8/instabot/bot/bot.py
+2020-08-22 15:19:44,709 - instabot version: 0.117.0 (api_login) - INFO - Not yet logged in starting: PRE-LOGIN FLOW!
+2020-08-22 15:19:45,115 - instabot version: 0.117.0 (api) - DEBUG - POST to endpoint: accounts/get_prefill_candidates/ returned response: <Response [200]>
+2020-08-22 15:19:45,450 - instabot version: 0.117.0 (api) - DEBUG - POST to endpoint: qe/sync/ returned response: <Response [200]>
+2020-08-22 15:19:45,815 - instabot version: 0.117.0 (api) - DEBUG - POST to endpoint: launcher/sync/ returned response: <Response [200]>
+2020-08-22 15:19:46,143 - instabot version: 0.117.0 (api) - DEBUG - POST to endpoint: accounts/contact_point_prefill/ returned response: <Response [200]>
+2020-08-22 15:19:48,015 - instabot version: 0.117.0 (api) - DEBUG - POST to endpoint: accounts/login/ returned response: <Response [200]>
+2020-08-22 15:19:48,016 - instabot version: 0.117.0 (api) - INFO - Logged-in successfully as 'victordigueslacerda'!
+2020-08-22 15:19:48,016 - instabot version: 0.117.0 (api_login) - INFO - LOGIN FLOW! Just logged-in: True
+2020-08-22 15:19:48,327 - instabot version: 0.117.0 (api) - DEBUG - POST to endpoint: qe/sync/ returned response: <Response [200]>
+2020-08-22 15:19:48,610 - instabot version: 0.117.0 (api) - DEBUG - POST to endpoint: launcher/sync/ returned response: <Response [200]>
+2020-08-22 15:19:48,881 - instabot version: 0.117.0 (api) - DEBUG - GET to endpoint: zr/token/result/?device_id=android-cffc1a251af68d37&token_hash=&custom_device_id=android-cffc1a251af68d37&fetch_reason=token_expired returned response: <Response [200]>
+2020-08-22 15:19:49,186 - instabot version: 0.117.0 (api) - DEBUG - GET to endpoint: multiple_accounts/get_account_family/ returned response: <Response [200]>
+2020-08-22 15:19:49,497 - instabot version: 0.117.0 (api) - DEBUG - POST to endpoint: qe/sync/ returned response: <Response [200]>
+2020-08-22 15:19:49,977 - instabot version: 0.117.0 (api) - DEBUG - GET to endpoint: igtv/browse_feed/?prefetch=1 returned response: <Response [200]>
+2020-08-22 15:19:50,296 - instabot version: 0.117.0 (api) - DEBUG - POST to endpoint: creatives/ar_class/ returned response: <Response [200]>
+2020-08-22 15:19:51,377 - instabot version: 0.117.0 (api) - DEBUG - POST to endpoint: feed/reels_tray/ returned response: <Response [200]>
+2020-08-22 15:19:53,175 - instabot version: 0.117.0 (api_login) - ERROR - Exception raised: 'CET'
+Traceback (most recent call last):
+  File "/Users/victor/Desktop/confessions/dist/bot.app/Contents/Resources/lib/python3.8/instabot/api/api_login.py", line 172, in login_flow
+  File "/Users/victor/Desktop/confessions/dist/bot.app/Contents/Resources/lib/python3.8/instabot/api/api.py", line 758, in get_timeline_feed
+  File "pytz/__init__.pyc", line 181, in timezone
+pytz.exceptions.UnknownTimeZoneError: 'CET'
+
+2020-08-22 15:19:53,175 - instabot version: 0.117.0 (bot_checkpoint) - DEBUG - Loading Checkpoint file from: /Users/victor/Desktop/confessions/dist/bot.app/Contents/Resources/config/victordigueslacerda.checkpoint
+2020-08-22 15:20:12,740 - instabot version: 0.117.0 (api) - DEBUG - POST to endpoint: media/configure/? returned response: <Response [200]>
+2020-08-22 15:20:13,038 - instabot version: 0.117.0 (api) - DEBUG - POST to endpoint: qe/expose/ returned response: <Response [200]>
+2020-08-22 15:20:13,042 - instabot version: 0.117.0 (bot_photo) - INFO - Photo 'to_post/2020_08_22-03_19_24_PM494c52426ca04a8185d2ee18c8555899.jpg' is uploaded.
+2020-08-22 15:20:19,926 - instabot version: 0.117.0 (bot) - INFO - Instabot version: 0.117.0 Started
+2020-08-22 15:20:19,926 - instabot version: 0.117.0 (bot) - DEBUG - Bot imported from /Users/victor/Desktop/confessions/dist/bot.app/Contents/Resources/lib/python3.8/instabot/bot/bot.py
+2020-08-22 15:20:19,927 - instabot version: 0.117.0 (api_login) - INFO - Not yet logged in starting: PRE-LOGIN FLOW!
+2020-08-22 15:20:20,250 - instabot version: 0.117.0 (api) - DEBUG - POST to endpoint: accounts/get_prefill_candidates/ returned response: <Response [200]>
+2020-08-22 15:20:20,568 - instabot version: 0.117.0 (api) - DEBUG - POST to endpoint: qe/sync/ returned response: <Response [200]>
+2020-08-22 15:20:20,904 - instabot version: 0.117.0 (api) - DEBUG - POST to endpoint: launcher/sync/ returned response: <Response [200]>
+2020-08-22 15:20:21,341 - instabot version: 0.117.0 (api) - DEBUG - POST to endpoint: accounts/contact_point_prefill/ returned response: <Response [200]>
+2020-08-22 15:20:23,367 - instabot version: 0.117.0 (api) - DEBUG - POST to endpoint: accounts/login/ returned response: <Response [200]>
+2020-08-22 15:20:23,367 - instabot version: 0.117.0 (api) - INFO - Logged-in successfully as 'victordigueslacerda'!
+2020-08-22 15:20:23,368 - instabot version: 0.117.0 (api_login) - INFO - LOGIN FLOW! Just logged-in: True
+2020-08-22 15:20:23,705 - instabot version: 0.117.0 (api) - DEBUG - POST to endpoint: qe/sync/ returned response: <Response [200]>
+2020-08-22 15:20:23,988 - instabot version: 0.117.0 (api) - DEBUG - POST to endpoint: launcher/sync/ returned response: <Response [200]>
+2020-08-22 15:20:24,290 - instabot version: 0.117.0 (api) - DEBUG - GET to endpoint: zr/token/result/?device_id=android-cffc1a251af68d37&token_hash=&custom_device_id=android-cffc1a251af68d37&fetch_reason=token_expired returned response: <Response [200]>
+2020-08-22 15:20:24,606 - instabot version: 0.117.0 (api) - DEBUG - GET to endpoint: multiple_accounts/get_account_family/ returned response: <Response [200]>
+2020-08-22 15:20:24,915 - instabot version: 0.117.0 (api) - DEBUG - POST to endpoint: qe/sync/ returned response: <Response [200]>
+2020-08-22 15:20:25,283 - instabot version: 0.117.0 (api) - DEBUG - GET to endpoint: igtv/browse_feed/?prefetch=1 returned response: <Response [200]>
+2020-08-22 15:20:25,591 - instabot version: 0.117.0 (api) - DEBUG - POST to endpoint: creatives/ar_class/ returned response: <Response [200]>
+2020-08-22 15:20:26,429 - instabot version: 0.117.0 (api) - DEBUG - POST to endpoint: feed/reels_tray/ returned response: <Response [200]>
+2020-08-22 15:20:26,434 - instabot version: 0.117.0 (api_login) - ERROR - Exception raised: 'CET'
+Traceback (most recent call last):
+  File "/Users/victor/Desktop/confessions/dist/bot.app/Contents/Resources/lib/python3.8/instabot/api/api_login.py", line 172, in login_flow
+  File "/Users/victor/Desktop/confessions/dist/bot.app/Contents/Resources/lib/python3.8/instabot/api/api.py", line 758, in get_timeline_feed
+  File "pytz/__init__.pyc", line 181, in timezone
+pytz.exceptions.UnknownTimeZoneError: 'CET'
+
+2020-08-22 15:20:26,434 - instabot version: 0.117.0 (bot_checkpoint) - DEBUG - Loading Checkpoint file from: /Users/victor/Desktop/confessions/dist/bot.app/Contents/Resources/config/victordigueslacerda.checkpoint
+2020-08-22 15:20:46,639 - instabot version: 0.117.0 (api) - DEBUG - POST to endpoint: media/configure/? returned response: <Response [200]>
+2020-08-22 15:20:46,951 - instabot version: 0.117.0 (api) - DEBUG - POST to endpoint: qe/expose/ returned response: <Response [200]>
+2020-08-22 15:20:46,951 - instabot version: 0.117.0 (bot_photo) - INFO - Photo 'to_post/2020_08_22-03_19_25_PM9fe5fd9d907b420eb71a106642429ef2.jpg' is uploaded.
+2020-08-22 15:23:05,596 - instabot version: 0.117.0 (bot_checkpoint) - DEBUG - Saving Checkpoint file to: /Users/victor/Desktop/confessions/dist/bot.app/Contents/Resources/config/victordigueslacerda.checkpoint
+2020-08-22 15:23:05,601 - instabot version: 0.117.0 (bot) - INFO - Total requests: 15
+2020-08-22 15:23:05,606 - instabot version: 0.117.0 (bot_checkpoint) - DEBUG - Saving Checkpoint file to: /Users/victor/Desktop/confessions/dist/bot.app/Contents/Resources/config/victordigueslacerda.checkpoint
+2020-08-22 15:23:05,607 - instabot version: 0.117.0 (bot) - INFO - Total requests: 15
