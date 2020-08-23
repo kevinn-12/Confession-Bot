@@ -5,4 +5,4 @@ The aim of this project is to create an app that automates postings from [Tellon
 
 + [bot.py:](https://github.com/kevinn-12/Confession-Bot/blob/master/bot.py) contains the raw code of the project
 + [bot.app:](https://github.com/kevinn-12/Confession-Bot/tree/master/bot.app/Contents) contains the final app for MacOS
-+ [bot.exe:](pending) contains the final app for Windows
++ [bot.exe:](https://github.com/kevinn-12/Confession-Bot/blob/master/bot.exe) contains the final app for Windows
