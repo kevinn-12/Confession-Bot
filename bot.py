@@ -84,7 +84,7 @@ def bot(tell_account_input, tell_password_input, ig_account_input, ig_password_i
             image = image.resize(zoom)
             v_line = ImageDraw.Draw(image)
             v_line.line([1, 30, 1, image.width], fill = "grey", width = 10)
-            template = Image.open("template.jpg")
+            template = Image.open(os.path.join(sys._MEIPASS, "template.jpg"))
             template.paste(image, (70,350))
             template.save(re.sub(".png", ".jpg", str("to_post/" + pics)))
 
@@ -156,7 +156,7 @@ def bot(tell_account_input, tell_password_input, ig_account_input, ig_password_i
 
 run = tk.Button(text = "Run!", command = lambda: bot(tell_account.get(), tell_password.get(), ig_account.get(), ig_password.get()))
 
-image = ImageTk.PhotoImage(Image.open("logo.png"))
+image = ImageTk.PhotoImage(Image.open(os.path.join(sys._MEIPASS, "logo.png")))
 tk.Label(window, image = image).grid(row = 0, column = 1, padx = 10, pady = 10)
 label_tell_account.grid(row = 1, column = 0)
 tell_account.grid(row = 1, column = 2, padx = 10, pady = 10)
